@@ -17,6 +17,15 @@ int main(int argc, char *argv[])
 		exit(1);
 	} 
 
+	for (p = res; p != NULL; p = p->next) {
+		if ((serversock = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) != 0)
+			continue;
+		if (bind(serversock, p->ai_addr, p->ai_addrlen) != 0) {
+			close(serversock);
+			continue;
+		}
+		break;
+	}
 
 	//for loop with socket and bind calls
 
