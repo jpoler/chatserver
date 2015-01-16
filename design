@@ -1,0 +1,16 @@
+the chatserver will have the ability to server up to n clients
+
+qor serialization scheme, use a circular buffer.
+to pack message: [one byte for messagelength, 30 bytes for username which will be '\0' terminated, maximum message length of 128] 
+
+basically, get a socket, bind to a port, listen
+
+then use a select to figure out which sockets are readable
+
+if the server socket becomes readable, accept, add the new socket to
+master set
+
+if any other socket becomes readable, read the message and send to everyone
+but the receiving socket and server socket
+
+worry about serialization later???
